@@ -23,7 +23,7 @@ const geocode = (address, callback) => {
 			if (!error.response) {
 				callback('Unable to reach geocode service!');
 			} else if (error.response.data.features.length === 0) {
-				callback('Can not find place!');
+				callback('Can not find place! Try another search.');
 			}
 		});
 };

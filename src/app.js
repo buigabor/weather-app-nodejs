@@ -3,6 +3,9 @@ const express = require('express');
 const hbs = require('hbs');
 const app = express();
 
+const geocode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
+
 // Paths for express
 const publicPath = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../template/views');
@@ -20,6 +23,30 @@ app.get('', (req, res) => {
 	res.render('index', {
 		title: 'Weather',
 		name: 'Bui Gábor',
+	});
+});
+
+app.get('/weather', (req, res) => {
+	const address = req.query.address;
+	if (!address) {
+		return res.send({ error: 'Address must be provided' });
+	}
+
+	geocode(address, (error, data) => {
+		if (error) {
+			res.send({ error });
+			return;
+		}
+
+		const { latitude, longitude, location } = data;
+
+		forecast(latitude, longitude, (error, forecastData) => {
+			if (error) {
+				res.send({ error });
+				return;
+			}
+			res.send({ weather: forecastData, location });
+		});
 	});
 });
 
