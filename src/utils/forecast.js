@@ -13,10 +13,10 @@ const forecast = (latitude, longitude, callback) => {
 			}
 		})
 		.then((data) => {
-			const dataToLog = `Weather description: ${data.current.weather_descriptions[0]}. 
+			const dataToLog = `${data.current.weather_descriptions[0]}. 
 			It is currently ${data.current.temperature} degrees out. 
 			It feels like ${data.current.feelslike} degrees out. 
-			The wind speed is ${data.current.wind_speed}km/h and the humidity is ${data.current.humidity}%`;
+			The wind speed is ${data.current.wind_speed} km/h and the humidity is ${data.current.humidity}%`;
 
 			callback(undefined, dataToLog);
 		})
