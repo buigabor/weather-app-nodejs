@@ -7,8 +7,9 @@ weatherForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 	messageOne.textContent = 'Loading...';
 	messageTwo.textContent = '';
+
 	axios
-		.get(`http://localhost:3000/weather?address=${locationInput.value}`)
+		.get(`/weather?address=${locationInput.value}`)
 		.then((response) => {
 			if (response.data.error) {
 				throw { error: response.data.error };
